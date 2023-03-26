@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, Button, ScrollView, TouchableOpacity } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { API, graphqlOperation } from 'aws-amplify';
-import { createEvent } from '../src/graphql/mutations';
+import { createTodo } from '../src/graphql/mutations';
 
 const Input = ({ navigation }) => {
   const [name, setName] = useState('');
@@ -17,17 +17,19 @@ const Input = ({ navigation }) => {
   const createEvent = async () => {
     try {
       const input = {
-        name,
-        description,
-        building,
-        location,
+        name: name,
+        description: description,
+        building: building,
+        location: location,
         organizer_contact: organizer,
-        date,
-        start,
-        end,
+        date: date,
+        start: start + ":00Z",
+        end: end + ":00Z",
+        open: true,
+        attendants: 1,
       };
-      const response = await API.graphql(graphqlOperation(createEvent, { input }));
-      const event = response.data.createEvent;
+      const response = await API.graphql(graphqlOperation(createTodo, { input }));
+      const event = response.data.createTodo;
       console.log(event);
     } catch (error) {
       console.error(error);
@@ -63,13 +65,13 @@ const Input = ({ navigation }) => {
       <Text style={styles.label}>Organizer Contact:</Text>
       <TextInput style={styles.input} value={organizer} onChangeText={setOrganizer} />
 
-      <Text style={styles.label}>Date:</Text>
+      <Text style={styles.label}>Date (YYYY-MM-DD):</Text>
       <TextInput style={styles.input} value={date} onChangeText={setDate} />
 
-      <Text style={styles.label}>Start Time:</Text>
+      <Text style={styles.label}>Start Time (HH:MM):</Text>
       <TextInput style={styles.input} value={start} onChangeText={setStart} />
 
-      <Text style={styles.label}>End Time:</Text>
+      <Text style={styles.label}>End Time (HH:MM):</Text>
       <TextInput style={styles.input} value={end} onChangeText={setEnd} />
 
       <View style={[styles.buttonContainer]}>

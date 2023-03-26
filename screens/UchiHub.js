@@ -15,6 +15,7 @@ const Home = ({ navigation }) => {
   const imageHeight = 375;
 
   return (
+
     <View style={styles.container}>
       <ImageBackground
         style={[styles.image]}
@@ -48,29 +49,31 @@ const Home = ({ navigation }) => {
         >
           <Text style={styles.text}>Quad</Text>
         </TouchableOpacity>
-        
-        {/* Add more buttons here */}
-        
+
       </ImageBackground>
+
+      <TouchableOpacity
+      style={[styles.createButton]}
+      onPress={() => navigation.navigate("Input")}
+      >
+      <Text style={styles.createButtonText}>Create Event</Text>
+      </TouchableOpacity>
+
     </View>
+    
+
   );
 };
 
 export default Home;
 
 const styles = StyleSheet.create({
-  header: {
-    color: "maroon",
-    fontWeight: "bold",
-    fontSize: 40,
-    marginLeft: "7%",
-    fontFamily: "Lobster"
-  },
   container: {
     flex: 1,
     height: "100%",
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: 'top',
+    alignItems: 'center',
+    paddingTop: 80
   },
   image: {
     width: 500,
@@ -94,5 +97,23 @@ const styles = StyleSheet.create({
     color: "black",
     fontWeight: "bold",
     fontSize: 20,
+  },
+  createButton: {
+    flex: 1,
+    width: 300,
+    height: 100,
+    borderRadius: 30,
+    justifyContent: "center",
+    alignItems: "center",
+    position: 'absolute',
+    backgroundColor: 'maroon',
+    borderColor: 'maroon',
+    borderWidth: 2,
+    bottom: '20%'
+  },
+    createButtonText: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 24,
   },
 });

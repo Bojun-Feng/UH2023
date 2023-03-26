@@ -1,20 +1,13 @@
-import Amplify from 'aws-amplify';
-import API, { graphqlOperation } from '@aws-amplify/api';
-import React, { useState } from "react";
-
-const config = {
-  aws_appsync_graphqlEndpoint: 'https://r2y3723b2jfttpnjgweqjdpdvy.appsync-api.us-east-1.amazonaws.com/graphql',
-  aws_appsync_region: 'us-east-1',
-  aws_appsync_authenticationType: 'AMAZON_COGNITO_USER_POOLS',
-  aws_appsync_apiKey: 'da2-uyzndfkzmvecplnre32kgl2zwa',
-};
-
-Amplify.configure(config);
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TextInput, Button, ScrollView, TouchableOpacity } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
+import { API, graphqlOperation } from 'aws-amplify';
+import { createEvent } from '../src/graphql/mutations';
 
 const Input = ({ navigation }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [building, setBuilding] = useState('');
+  const [building, setBuilding] = useState('Cobb');
   const [location, setLocation] = useState('');
   const [organizer, setOrganizer] = useState('');
   const [date, setDate] = useState('');
@@ -23,20 +16,6 @@ const Input = ({ navigation }) => {
 
   const createEvent = async () => {
     try {
-      const mutation = `mutation createEvent($input: CreateEventInput!) {
-        createEvent(input: $input) {
-          id
-          name
-          description
-          building
-          location
-          organizer_contact
-          date
-          start
-          end
-        }
-      }`;
-
       const input = {
         name,
         description,
@@ -47,11 +26,8 @@ const Input = ({ navigation }) => {
         start,
         end,
       };
-
-      const response = await API.graphql(graphqlOperation(mutation, { input }));
-
+      const response = await API.graphql(graphqlOperation(createEvent, { input }));
       const event = response.data.createEvent;
-
       console.log(event);
     } catch (error) {
       console.error(error);
@@ -60,33 +36,97 @@ const Input = ({ navigation }) => {
 
   return (
     <>
-      <Text>Name:</Text>
-      <TextInput value={name} onChangeText={setName} />
+    <ScrollView style={styles.container}>
+      <View style={{ height: 50 }}></View>
+      
+      <Text style={styles.label}>Building:</Text>
+      <Picker
+        style={styles.input}
+        selectedValue={building}
+        onValueChange={(value) => setBuilding(value)}
+      >
+        <Picker.Item label="Cobb" value="Cobb" />
+        <Picker.Item label="Quad" value="Quad" />
+        <Picker.Item label="Crerar" value="Crerar" />
+        <Picker.Item label="Harper" value="Harper" />
+      </Picker>
 
-      <Text>Description:</Text>
-      <TextInput value={description} onChangeText={setDescription} />
+      <Text style={styles.label}>Name:</Text>
+      <TextInput style={styles.input} value={name} onChangeText={setName} />
 
-      <Text>Building:</Text>
-      <TextInput value={building} onChangeText={setBuilding} />
+      <Text style={styles.label}>Description:</Text>
+      <TextInput style={styles.input} value={description} onChangeText={setDescription} />
 
-      <Text>Location:</Text>
-      <TextInput value={location} onChangeText={setLocation} />
+      <Text style={styles.label}>Location:</Text>
+      <TextInput style={styles.input} value={location} onChangeText={setLocation} />
 
-      <Text>Organizer Contact:</Text>
-      <TextInput value={organizer} onChangeText={setOrganizer} />
+      <Text style={styles.label}>Organizer Contact:</Text>
+      <TextInput style={styles.input} value={organizer} onChangeText={setOrganizer} />
 
-      <Text>Date:</Text>
-      <TextInput value={date} onChangeText={setDate} />
+      <Text style={styles.label}>Date:</Text>
+      <TextInput style={styles.input} value={date} onChangeText={setDate} />
 
-      <Text>Start Time:</Text>
-      <TextInput value={start} onChangeText={setStart} />
+      <Text style={styles.label}>Start Time:</Text>
+      <TextInput style={styles.input} value={start} onChangeText={setStart} />
 
-      <Text>End Time:</Text>
-      <TextInput value={end} onChangeText={setEnd} />
+      <Text style={styles.label}>End Time:</Text>
+      <TextInput style={styles.input} value={end} onChangeText={setEnd} />
 
-      <Button title="Create Event" onPress={createEvent} />
+      <View style={[styles.buttonContainer]}>
+        <TouchableOpacity
+            style={[styles.createButton]}
+            onPress={createEvent}
+          >
+            <Text style={styles.createButtonText}>Create Event</Text>
+          </TouchableOpacity>
+      </View>
+
+      <View style={{height: 150}}></View>
+    </ScrollView>
+
+    
     </>
   );
 };
 
-export default Input
+const styles = StyleSheet.create({
+  container: {
+    padding: 10,
+  },
+  label: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    marginVertical: 5,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    padding: 5,
+    marginBottom: 10,
+  },
+  createButton: {
+    flex: 1,
+    width: 300,
+    height: 100,
+    borderRadius: 30,
+    justifyContent: "center",
+    alignItems: "center",
+    position: 'absolute',
+    backgroundColor: 'maroon',
+    borderColor: 'maroon',
+    borderWidth: 2,
+    bottom: '15%'
+  },
+  createButtonText: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 24,
+  },
+  buttonContainer: {
+    height: 200, 
+    alignItems: "center",
+  },
+  
+});
+
+export default Input;

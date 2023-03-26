@@ -1,20 +1,24 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 const EventDetails = ({ route }) => {
   const { eventData } = route.params;
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Image style={styles.image} source={{ uri: eventData.imageUrl }} />
-      </View>
       <View style={styles.content}>
-        <Text style={styles.title}>{eventData.title}</Text>
-        <Text style={styles.description}>{eventData.description}</Text>
+        <Text style={styles.title}>{eventData.name}</Text>
         <Text style={styles.date}>{eventData.date}</Text>
-        <Text style={styles.location}>{eventData.location}</Text>
+        <Text style={styles.organizer_contact}>Contact: {eventData.organizer_contact}</Text>
+        <Text style={styles.start}>Time: {eventData.start.substring(0,5)} - {eventData.end.substring(0,5)}</Text>
+        <Text style={styles.location}>Location: {eventData.location}</Text>
+        <Text style={styles.open}>{eventData.open}</Text>
+        <Text style={styles.description}>Description:</Text>
+        <Text style={styles.description}>{eventData.description}</Text>
       </View>
+      <Text style={styles.createdAt}>First Created: {eventData.createdAt.replace("Z", "").replace("T", " ")}</Text>
+      <Text style={styles.updatedAt}>Last Updated: {eventData.updatedAt.replace("Z", "").replace("T", " ")}</Text>
+
     </View>
   );
 };
@@ -22,12 +26,6 @@ const EventDetails = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  header: {
-    backgroundColor: '#003366', // set background color here
-    height: 200,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   content: {
     flex: 1,
@@ -48,11 +46,38 @@ const styles = StyleSheet.create({
   },
   location: {
     fontSize: 16,
+    marginBottom: 10,
   },
-  image: {
-    width: '100%',
-    height: '100%',
-    resizeMode: 'cover',
+  organizer_contact: {
+    fontSize: 16,
+    marginBottom: 10,
+  },
+  start: {
+    fontSize: 16,
+    marginBottom: 10,
+  },
+  end: {
+    fontSize: 16,
+    marginBottom: 10,
+  },
+  open: {
+    fontSize: 16,
+    marginBottom: 10,
+  },
+  attendants: {
+    fontSize: 16,
+    marginBottom: 10,
+  },
+  createdAt: {
+    color: "#A2A2A2",
+    fontSize: 10,
+    marginLeft: 20,
+  },
+  updatedAt: {
+    color: "#A2A2A2",
+    fontSize: 10,
+    marginLeft: 20,
+    marginBottom: 20,
   },
 });
 

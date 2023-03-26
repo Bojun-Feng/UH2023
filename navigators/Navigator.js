@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 // Screens
 import UchiHub from "../screens/UchiHub";
+import Input from "../screens/Input";
 import Event_list from "../screens/Event_list";
 import Event_detail from "../screens/Event_detail";
 
@@ -15,6 +16,7 @@ const MainNav = () => {
       }}
     >
       <Stack.Screen name="UchiHub" component={UchiHub} />
+      <Stack.Screen name="Input" component={Input} />
       <Stack.Screen name="Event_list" component={Event_list} />
       <Stack.Screen name="Event_detail" component={Event_detail} />
     </Stack.Navigator>

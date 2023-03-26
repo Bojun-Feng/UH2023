@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-uchihub-dev-191942-authRole",
+      "UnauthRoleArn": "arn:aws:iam::178891614156:role/amplify-uchihub-dev-191942-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::178891614156:role/amplify-uchihub-dev-191942-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-uchihub-dev-191942-deployment",
+      "UnauthRoleName": "amplify-uchihub-dev-191942-unauthRole",
+      "StackName": "amplify-uchihub-dev-191942",
+      "StackId": "arn:aws:cloudformation:us-east-1:178891614156:stack/amplify-uchihub-dev-191942/e86e37f0-cb6b-11ed-93b2-0e06a31d20cd",
+      "AmplifyAppId": "dp4ah56zmgvee"
+    },
+    "categories": {
+      "auth": {
+        "uchihubd08f53bd": {}
+      }
+    }
+  }
+}

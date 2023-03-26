@@ -2,10 +2,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 // Screens
 import Home from "../screens/Home";
-import Leather from "../screens/Leather";
-import Metal from "../screens/Metal";
-import Paper from "../screens/Paper";
-import Wood from "../screens/Wood";
+import Event_list from "../screens/Event_list";
+import Event_detail from "../screens/Event_detail";
 
 const Stack = createNativeStackNavigator();
 
@@ -17,10 +15,8 @@ const MainNav = () => {
       }}
     >
       <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="Leather" component={Leather} />
-      <Stack.Screen name="Metal" component={Metal} />
-      <Stack.Screen name="Paper" component={Paper} />
-      <Stack.Screen name="Wood" component={Wood} />
+      <Stack.Screen name="Event_list" component={Event_list} />
+      <Stack.Screen name="Event_detail" component={Event_detail} />
     </Stack.Navigator>
   );
 };

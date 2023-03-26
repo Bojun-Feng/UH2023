@@ -6,63 +6,52 @@ import {
   Image,
   StyleSheet,
   Text,
+  ImageBackground,
+  Dimensions,
 } from "react-native";
 
 const Home = ({ navigation }) => {
+  const imageWidth = 500;
+  const imageHeight = 375;
+
   return (
     <View style={styles.container}>
-      <View style={styles.quadrant}>
+      <ImageBackground
+        style={[styles.image]}
+        source={require("../assets/UChicagoMap.webp")}
+        resizeMode={"contain"}
+      >
         <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate("Wood")}
+          style={[styles.button, { left: imageWidth * 0.3, top: imageHeight * 0.3 }]}
+          onPress={() => navigation.navigate("Event_list", { building: "Cobb" })}
         >
-          <Image
-            style={styles.image}
-            source={require("../assets/wood.webp")}
-            resizeMode={"contain"}
-          />
-          <Text style={styles.text}>Wood</Text>
+          <Text style={styles.text}>Cobb</Text>
         </TouchableOpacity>
-      </View>
-      <View style={styles.quadrant}>
+
         <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate("Paper")}
+          style={[styles.button, { left: imageWidth * 0.5, top: imageHeight * 0.85 }]}
+          onPress={() => navigation.navigate("Event_list", { building: "Harper" })}
         >
-          <Image
-            style={styles.image}
-            source={require("../assets/paper.webp")}
-            resizeMode={"contain"}
-          />
-          <Text style={styles.text}>Paper</Text>
+          <Text style={styles.text}>Harper</Text>
         </TouchableOpacity>
-      </View>
-      <View style={styles.quadrant}>
+
         <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate("Metal")}
+          style={[styles.button, { left: imageWidth * 0.15, top: imageHeight * 0.7 }]}
+          onPress={() => navigation.navigate("Event_list", { building: "Crerar" })}
         >
-          <Image
-            style={styles.image}
-            source={require("../assets/metal.webp")}
-            resizeMode={"contain"}
-          />
-          <Text style={styles.text}>Metal</Text>
+          <Text style={styles.text}>Crerar</Text>
         </TouchableOpacity>
-      </View>
-      <View style={styles.quadrant}>
+
         <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate("Leather")}
+          style={[styles.button, { left: imageWidth * 0.45, top: imageHeight * 0.5 }]}
+          onPress={() => navigation.navigate("Event_list", { building: "Quad" })}
         >
-          <Image
-            style={styles.image}
-            source={require("../assets/leather.webp")}
-            resizeMode={"contain"}
-          />
-          <Text style={styles.text}>Leather</Text>
+          <Text style={styles.text}>Quad</Text>
         </TouchableOpacity>
-      </View>
+        
+        {/* Add more buttons here */}
+        
+      </ImageBackground>
     </View>
   );
 };
@@ -70,43 +59,40 @@ const Home = ({ navigation }) => {
 export default Home;
 
 const styles = StyleSheet.create({
+  header: {
+    color: "maroon",
+    fontWeight: "bold",
+    fontSize: 40,
+    marginLeft: "7%",
+    fontFamily: "Lobster"
+  },
   container: {
-    flex: 10,
-    flexDirection: "reverse-row",
-    backgroundColor: "transparent",
-    flexWrap: "wrap",
-    justifyContent: "space-around",
-    alignItems: "bottom",
-    marginBottom: "20%",
-  },
-  quadrant: {
-    width: "50%",
-    height: "50%",
-    backgroundColor: "transparent",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  button: {
-    width: "85%",
-    height: "90%",
-    backgroundColor: "white",
-    borderRadius: 40,
-    justifyContent: "center",
-    alignItems: "center",
-    borderWidth: 1,
-    borderColor: "lightgray",
+    flex: 1,
+    height: "100%",
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   image: {
-    width: "80%",
-    height: "60%",
-    maxWidth: "100%",
-    maxHeight: "100%",
+    width: 500,
+    height: 375,
+  },
+  button: {
+    width: 100,
+    height: 40,
+    borderRadius: 20,
+    justifyContent: "center",
+    alignItems: "center",
+    position: 'absolute',
+    backgroundColor: '#FFFFFF',
+    shadowColor: '#2AC062',
+    shadowOpacity: 0.5,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 2,
+    elevation: 3,
   },
   text: {
-    fontSize: 30,
-    color: "gray",
-    textAlign: "center",
-    alignSelf: "center",
-    marginTop: 0,
+    color: "black",
+    fontWeight: "bold",
+    fontSize: 20,
   },
 });

@@ -1,48 +1,55 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { API, graphqlOperation } from 'aws-amplify';
+import { listTodos } from '../src/graphql/queries';
 
 
-const Event = ({ navigation }) => {
-  const [eventData, setEventData] = useState([
-    {
-      key: '1',
-      name: 'Spring Festival',
-      date: 'April 10th, 2023',
-      location: 'Campus Green',
-      description: 'Join us for the annual Spring Festival featuring live music, food trucks, and games!',
-    },
-    {
-      key: '2',
-      name: 'Career Fair',
-      date: 'April 20th, 2023',
-      location: 'Student Center',
-      description: 'Meet with top companies and recruiters to find your dream job or internship.',
-    },
-  ]);
+const Event = ({ route, navigation }) => {
+  const { building } = route.params;
+  const [eventData, setEventData] = useState([]);
 
-  const renderEvent = ({ item }) => (
-    <TouchableOpacity
-      style={styles.eventContainer}
-      onPress={() => navigation.navigate('Event_detail', { eventData: item })}
-    >
-      <Text style={styles.eventName}>{item.name}</Text>
-      <Text style={styles.eventDate}>{item.date}</Text>
-      <Text style={styles.eventLocation}>{item.location}</Text>
-      <Text style={styles.eventDescription}>{item.description}</Text>
-    </TouchableOpacity>
-  );
+  useEffect(() => {
+    const fetchEventData = async () => {
+      try {
+        const response = await API.graphql(
+            graphqlOperation(listTodos, { limit: 100, building: "building" })
+            );
+        setEventData(response.data.listTodos.items);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchEventData();
+  }, []);
+
+  const renderEvent = ({ item }) => {
+    if (item.building === building) {
+      return (
+        <TouchableOpacity
+          style={styles.eventContainer}
+          onPress={() => navigation.navigate('Event_detail', { eventData: item })}
+        >
+          <Text style={styles.eventName}>{item.name}</Text>
+          <Text style={styles.eventDate}>{item.date}</Text>
+          <Text style={styles.eventDate}>{item.start.substring(0,5)} - {item.end.substring(0,5)}</Text>
+          <Text style={styles.eventDescription}>{item.description}</Text>
+        </TouchableOpacity>
+      );
+    }
+  };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Upcoming Events</Text>
+      <Text style={styles.title}>Upcoming Events at {building}</Text>
       <FlatList
         data={eventData}
         renderItem={renderEvent}
-        keyExtractor={item => item.key}
+        keyExtractor={item => item.id}
       />
     </View>
   );
 };
+
 export default Event;
 
 const styles = StyleSheet.create({
@@ -61,7 +68,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     padding: 10,
     marginVertical: 5,
-    marginHorizontal: 10,
+    marginHorizontal: 20,
     borderRadius: 5,
     shadowColor: '#000000',
     shadowOffset: {

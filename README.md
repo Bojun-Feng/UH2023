@@ -5,9 +5,6 @@ UchiHub is a real-time location sharing app designed specifically for the Univer
 ## Table of Contents
 
 - [Features](#features)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
@@ -20,29 +17,6 @@ UchiHub is a real-time location sharing app designed specifically for the Univer
 - **Find Friends**: Look up friends or classmates in different buildings and see if they are nearby.
 - **Events**: Discover campus events and join study groups or social gatherings.
 - **Campus Map**: Interactive campus map with building details and directions.
-
-## Getting Started
-
-To use UchiHub, follow these steps:
-
-### Prerequisites
-
-Before you can install and use UchiHub, ensure you have the following:
-
-- A smartphone running Android 6.0 (Marshmallow) or higher, or iOS 11 or higher.
-- An active University of Chicago email account.
-
-### Installation
-
-#### Android
-
-1. Visit the [Google Play Store](https://play.google.com/store) and search for "UchiHub."
-2. Tap "Install" to download and install the app on your device.
-
-#### iOS
-
-1. Visit the [Apple App Store](https://www.apple.com/app-store/) and search for "UchiHub."
-2. Tap "Get" to download and install the app on your device.
 
 ## Usage
 
